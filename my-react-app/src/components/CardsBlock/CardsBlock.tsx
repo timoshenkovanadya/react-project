@@ -5,7 +5,7 @@ export class CardsBlock extends React.Component<CardsBlockPropsType> {
   render(): React.ReactNode {
     return (
       <div className="cards-block-wrap">
-        {this.props.data?.map((item) => <p>{item}</p>)}
+        {this.props.data?.map((item) => <p key={item.uid as string}>{JSON.stringify(item)}</p>)}
       </div>
     );
   }
