@@ -5,6 +5,7 @@ import { ResponseType } from "./api/api.types";
 import { CardsBlock } from "./components/CardsBlock/CardsBlock";
 import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 import { PropsType, StateType } from "./app.types";
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 export class App extends React.Component<PropsType, StateType> {
   constructor(props: Record<string, never>) {
@@ -22,10 +23,10 @@ export class App extends React.Component<PropsType, StateType> {
 
   render(): React.ReactNode {
     return (
-      <div>
+      <ErrorBoundary>
         <SearchBlock searchDataHandler={this.searchDataHandler} />
         <CardsBlock data={this.state.data} />
-      </div>
+      </ErrorBoundary>
     );
   }
 }

@@ -3,6 +3,7 @@ export type SearchBlockPropsType = {
 };
 export type SearchBlockStateType = {
   searchValue: string;
+  isError: boolean;
 };
 
 export type FormFieldsType = EventTarget & {

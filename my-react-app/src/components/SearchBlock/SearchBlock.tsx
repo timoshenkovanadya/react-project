@@ -14,6 +14,7 @@ export class SearchBlock extends React.Component<
     const initialValue = window.localStorage.getItem("searchValue") || "";
     this.state = {
       searchValue: initialValue,
+      isError: false,
     };
     this.props.searchDataHandler(initialValue);
   }
@@ -27,10 +28,15 @@ export class SearchBlock extends React.Component<
 
   changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
     const newValue = e.target.value;
-    this.setState({ searchValue: newValue });
+    this.setState((prev) => ({ ...prev, searchValue: newValue }));
+  };
+
+  throwErrorHandler = () => {
+    this.setState((prev) => ({ ...prev, isError: true }));
   };
 
   render(): React.ReactNode {
+    if (this.state.isError) throw new Error('THIS IS TEST ERROR')
     return (
       <div className="search-block-wrap">
         <form className="search-block-form" onSubmit={this.submitHandler}>
@@ -46,6 +52,13 @@ export class SearchBlock extends React.Component<
             />
           </label>
           <input className="search-block-button" type="submit" value="Search" />
+          <button
+            className="throw-error-button"
+            type="button"
+            onClick={this.throwErrorHandler}
+          >
+            Throw error
+          </button>
         </form>
       </div>
     );
