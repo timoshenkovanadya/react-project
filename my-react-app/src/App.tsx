@@ -1,11 +1,10 @@
 import React from "react";
 import "./App.css";
+import { search } from "./api/api";
+import { ResponseType } from "./api/api.types";
 import { CardsBlock } from "./components/CardsBlock/CardsBlock";
 import { SearchBlock } from "./components/SearchBlock/SearchBlock";
-import { search } from "./api/api";
-
-type PropsType = Record<string, never>;
-type StateType = { data: string[] };
+import { PropsType, StateType } from "./app.types";
 
 export class App extends React.Component<PropsType, StateType> {
   constructor(props: Record<string, never>) {
@@ -16,13 +15,15 @@ export class App extends React.Component<PropsType, StateType> {
   searchDataHandler = (newSearch: string) => {
     search(newSearch)
       .then((res) => res.json())
-      .then((data) => this.setState((prev) => ({ ...prev, data: data.animals })));
+      .then((data: ResponseType) =>
+        this.setState((prev) => ({ ...prev, data: data.animals })),
+      );
   };
 
   render(): React.ReactNode {
     return (
       <div>
-        <SearchBlock searchDataHandler={this.searchDataHandler}/>
+        <SearchBlock searchDataHandler={this.searchDataHandler} />
         <CardsBlock data={this.state.data} />
       </div>
     );
