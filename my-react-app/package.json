@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format:fix": "prettier . --write",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install my-react-app/.husky"
   },
   "husky": {
     "hooks": {
@@ -41,7 +41,7 @@
     "eslint-plugin-react-compiler": "^0.0.0-experimental-0998c1e-20240625",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
-    "husky": "^8.0.3",
+    "husky": "^9.0.0",
     "lint-staged": "^15.2.7",
     "prettier": "3.3.2",
     "typescript": "^5.2.2",
