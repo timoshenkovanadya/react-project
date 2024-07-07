@@ -3,7 +3,7 @@ import { CardsBlockPropsType } from "./cardsBlock.types";
 
 export class CardsBlock extends React.Component<CardsBlockPropsType> {
   render(): React.ReactNode {
-    const a = 1;
+    const a = 2;
     return (
       <div className="cards-block-wrap">
         {this.props.data?.map((item) => (
