@@ -36,7 +36,7 @@ export class SearchBlock extends React.Component<
   };
 
   render(): React.ReactNode {
-    if (this.state.isError) throw new Error('THIS IS TEST ERROR')
+    if (this.state.isError) throw new Error("THIS IS TEST ERROR");
     return (
       <div className="search-block-wrap">
         <form className="search-block-form" onSubmit={this.submitHandler}>
@@ -49,9 +49,16 @@ export class SearchBlock extends React.Component<
               id="searchValue"
               value={this.state.searchValue}
               onChange={this.changeHandler}
+              disabled={this.props.isFetching}
             />
           </label>
-          <input className="search-block-button" type="submit" value="Search" />
+          <input
+            disabled={this.props.isFetching}
+            className="search-block-button"
+            type="submit"
+            value="Search"
+          />
+
           <button
             className="throw-error-button"
             type="button"

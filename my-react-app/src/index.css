@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aquamarine;
+  background-color: #050114;
   color: beige;
   height: 300px;
 }
@@ -43,6 +43,8 @@
 }
 .throw-error-button {
   border-radius: 40px;
+  width: 80px;
+  height: 20px;
 }
 
 .cards-block-wrap {
@@ -52,7 +54,6 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   background-color: #050114;
-
   height: 60%;
 }
 .card-container {

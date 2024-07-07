@@ -1,5 +1,6 @@
 export type SearchBlockPropsType = {
   searchDataHandler: (newString: string) => void;
+  isFetching: boolean;
 };
 export type SearchBlockStateType = {
   searchValue: string;

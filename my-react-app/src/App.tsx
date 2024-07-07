@@ -10,22 +10,26 @@ import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 export class App extends React.Component<PropsType, StateType> {
   constructor(props: Record<string, never>) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: [], isFetching: true };
   }
 
   searchDataHandler = (newSearch: string) => {
+    this.setState((prev) => ({ ...prev, isFetching: true }));
     search(newSearch)
       .then((res) => res.json())
       .then((data: ResponseType) =>
-        this.setState((prev) => ({ ...prev, data: data.animals })),
+        this.setState(() => ({ isFetching: false, data: data.animals })),
       );
   };
 
   render(): React.ReactNode {
     return (
       <ErrorBoundary>
-        <SearchBlock searchDataHandler={this.searchDataHandler} />
-        <CardsBlock data={this.state.data} />
+        <SearchBlock
+          searchDataHandler={this.searchDataHandler}
+          isFetching={this.state.isFetching}
+        />
+        <CardsBlock data={this.state.data} isFetching={this.state.isFetching} />
       </ErrorBoundary>
     );
   }
