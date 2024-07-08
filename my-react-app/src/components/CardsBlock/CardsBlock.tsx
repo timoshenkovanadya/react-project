@@ -4,6 +4,7 @@ import { Loader } from "../Loader/Loader";
 
 export class CardsBlock extends React.Component<CardsBlockPropsType> {
   render(): React.ReactNode {
+    const a = 1;
     return (
       <div className="cards-block-wrap">
         {this.props.isFetching ? (
