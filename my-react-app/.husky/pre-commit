@@ -1,1 +1,2 @@
+cd my-react-app/.husky
 npm run lint
