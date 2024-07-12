@@ -1,73 +1,73 @@
-import React, { ChangeEventHandler, FormEventHandler } from "react";
-import {
-  FormFieldsType,
-  SearchBlockPropsType,
-  SearchBlockStateType,
-} from "./searchBlock.types";
+import React, {
+  useState,
+  useEffect,
+  ChangeEvent,
+  FormEvent,
+  useRef,
+} from "react";
+import { FormFieldsType, SearchBlockPropsType } from "./searchBlock.types";
+import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
 
-export class SearchBlock extends React.Component<
-  SearchBlockPropsType,
-  SearchBlockStateType
-> {
-  constructor(props: SearchBlockPropsType) {
-    super(props);
-    const initialValue = window.localStorage.getItem("searchValue") || "";
-    this.state = {
-      searchValue: initialValue,
-      isError: false,
-    };
-    this.props.searchDataHandler(initialValue);
-  }
+export const SearchBlock: React.FC<SearchBlockPropsType> = ({
+  searchDataHandler,
+  isFetching,
+}) => {
+  const ref = useRef<HTMLInputElement | null>(null);
+  const [searchValue, setSearchValue] = useValueWithLocalStorage();
+  const [isError, setIsError] = useState<boolean>(false);
 
-  submitHandler: FormEventHandler = (e) => {
+  useEffect(() => {
+    searchDataHandler(searchValue);
+  }, []);
+
+  const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     const newValue = (e.target as FormFieldsType).elements.searchValue.value;
-    this.props.searchDataHandler(newValue);
-    window.localStorage.setItem("searchValue", newValue);
+    searchDataHandler(newValue);
   };
 
-  changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const newValue = e.target.value;
-    this.setState((prev) => ({ ...prev, searchValue: newValue }));
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
   };
 
-  throwErrorHandler = () => {
-    this.setState((prev) => ({ ...prev, isError: true }));
+  const throwErrorHandler = () => {
+    setIsError(true);
   };
 
-  render(): React.ReactNode {
-    if (this.state.isError) throw new Error("THIS IS TEST ERROR");
-    return (
-      <div className="search-block-wrap">
-        <form className="search-block-form" onSubmit={this.submitHandler}>
-          <label className="search-block-label">
-            Everything you want to know about animals from star tracks
-            <input
-              className="search-block-input"
-              type="text"
-              name="searchValue"
-              id="searchValue"
-              value={this.state.searchValue}
-              onChange={this.changeHandler}
-              disabled={this.props.isFetching}
-            />
-          </label>
+  if (isError) throw new Error("THIS IS TEST ERROR");
+
+  return (
+    <div className="search-block-wrap">
+      <form className="search-block-form" onSubmit={submitHandler}>
+        <label className="search-block-label">
+          Everything you want to know about animals from star tracks
           <input
-            disabled={this.props.isFetching}
-            className="search-block-button"
-            type="submit"
-            value="Search"
+            className="search-block-input"
+            type="text"
+            name="searchValue"
+            id="searchValue"
+            value={searchValue}
+            onChange={changeHandler}
+            disabled={isFetching}
+            ref={ref}
           />
+        </label>
+        <input
+          disabled={isFetching}
+          className="search-block-button"
+          type="submit"
+          value="Search"
+        />
+        <button
+          className="throw-error-button"
+          type="button"
+          onClick={throwErrorHandler}
+        >
+          Throw error
+        </button>
+      </form>
+    </div>
+  );
+};
 
-          <button
-            className="throw-error-button"
-            type="button"
-            onClick={this.throwErrorHandler}
-          >
-            Throw error
-          </button>
-        </form>
-      </div>
-    );
-  }
-}
+export default SearchBlock;
