@@ -1,36 +1,33 @@
-import React from "react";
+import { useState } from "react";
 import "./App.css";
 import { search } from "./api/api";
-import { ResponseType } from "./api/api.types";
+import { Animal, ResponseType } from "./api/api.types";
 import { CardsBlock } from "./components/CardsBlock/CardsBlock";
-import { SearchBlock } from "./components/SearchBlock/SearchBlock";
-import { PropsType, StateType } from "./app.types";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 
-export class App extends React.Component<PropsType, StateType> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = { data: [], isFetching: true };
-  }
+export const App = () => {
+  const [data, setData] = useState<Animal[]>([]);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
 
-  searchDataHandler = (newSearch: string) => {
-    this.setState((prev) => ({ ...prev, isFetching: true }));
+  const searchDataHandler = (newSearch: string) => {
+    setIsFetching(true);
     search(newSearch)
       .then((res) => res.json())
-      .then((data: ResponseType) =>
-        this.setState(() => ({ isFetching: false, data: data.animals })),
-      );
+      .then((data: ResponseType) => {
+        setIsFetching(false);
+        setData(data.animals);
+      });
   };
 
-  render(): React.ReactNode {
-    return (
-      <ErrorBoundary>
-        <SearchBlock
-          searchDataHandler={this.searchDataHandler}
-          isFetching={this.state.isFetching}
-        />
-        <CardsBlock data={this.state.data} isFetching={this.state.isFetching} />
-      </ErrorBoundary>
-    );
-  }
-}
+  return (
+    <ErrorBoundary>
+      <SearchBlock
+        searchDataHandler={searchDataHandler}
+        isFetching={isFetching}
+      />
+      <CardsBlock data={data} isFetching={isFetching} />
+    </ErrorBoundary>
+  );
+};
+
