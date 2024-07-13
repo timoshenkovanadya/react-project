@@ -1,3 +1,13 @@
+.contentWrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 220px);
+  box-sizing: border-box;
+  overflow: auto;
+  margin: 10px 0;
+  background-color: #050114;
+}
+
 .cardsWrap {
   display: flex;
   flex-direction: row;

@@ -27,11 +27,11 @@ export const App = () => {
 
   return (
     <ErrorBoundary>
-      <div>
-        <SearchBlock
-          searchDataHandler={searchDataHandler}
-          isFetching={isFetching}
-        />
+      <SearchBlock
+        searchDataHandler={searchDataHandler}
+        isFetching={isFetching}
+      />
+      <div className={s.contentWrap}>
         <div className={s.cardsWrap}>
           <CardsBlock data={data} isFetching={isFetching} />
           <Outlet />
