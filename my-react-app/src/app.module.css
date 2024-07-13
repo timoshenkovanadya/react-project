@@ -1,0 +1,4 @@
+.cardsWrap {
+  display: flex;
+  flex-direction: row;
+}

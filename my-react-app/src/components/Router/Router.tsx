@@ -7,7 +7,6 @@ export const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<App />}>
-        <Route index element={<App />} />
         <Route path="/detail/:detailId" element={<DetailedCard />} />
         {/* <Route path="dashboard" element={<Dashboard />} /> */}
       </Route>

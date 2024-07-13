@@ -1,0 +1,6 @@
+.detailedWrap {
+    display: flex;
+    width: 40vw;
+    height: 100%;
+    background-color: blue;
+}
