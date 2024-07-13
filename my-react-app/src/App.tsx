@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { search } from "./api/api";
 import { Animal, ResponseType } from "./api/api.types";
 import s from "./app.module.css";
 import { CardsBlock } from "./components/CardsBlock/CardsBlock";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
-import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 import { Pagination } from "./components/Pagination/Pagination";
+import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 
 export const App = () => {
-  const { page } = useParams();
   const [data, setData] = useState<Animal[]>([]);
   const [maxPage, setMaxPage] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(true);
 
-  const searchDataHandler = (newSearch: string) => {
+  const searchDataHandler = (newSearch: string, page: string | undefined) => {
     if (!page) return;
     setIsFetching(true);
     search(newSearch, page)
@@ -22,7 +21,7 @@ export const App = () => {
       .then((data: ResponseType) => {
         setIsFetching(false);
         setData(data.animals);
-        setMaxPage(data.page.totalPages.toString())
+        setMaxPage(data.page.totalPages.toString());
       });
   };
 
@@ -38,7 +37,7 @@ export const App = () => {
           <Outlet />
         </div>
       </div>
-      <Pagination maxPage={maxPage}/>
+      <Pagination maxPage={maxPage} />
     </ErrorBoundary>
   );
 };

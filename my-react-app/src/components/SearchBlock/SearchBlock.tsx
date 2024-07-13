@@ -7,23 +7,27 @@ import React, {
 } from "react";
 import { FormFieldsType, SearchBlockPropsType } from "./searchBlock.types";
 import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const SearchBlock: React.FC<SearchBlockPropsType> = ({
   searchDataHandler,
   isFetching,
 }) => {
   const ref = useRef<HTMLInputElement | null>(null);
+  const { page } = useParams();
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useValueWithLocalStorage();
   const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
-    searchDataHandler(searchValue);
-  }, []);
+    searchDataHandler(searchValue, page);
+  }, [page]);
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     const newValue = (e.target as FormFieldsType).elements.searchValue.value;
-    searchDataHandler(newValue);
+    searchDataHandler(newValue, "1");
+    navigate(`/page/1`);
   };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
