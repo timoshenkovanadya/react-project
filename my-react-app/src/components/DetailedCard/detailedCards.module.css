@@ -1,8 +1,10 @@
 .detailedWrap {
   display: flex;
+  position: relative;
   width: 40vw;
   height: 100%;
   background-color: blue;
+  z-index: 3;
 }
 .descriptionWrap {
   display: flex;

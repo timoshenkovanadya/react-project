@@ -9,7 +9,6 @@ export const Router = () => {
     <Routes>
       <Route path="/page/:page/" element={<App />}>
         <Route path="detail/:detailId" element={<DetailedCard />} />
-        {/* <Route path="dashboard" element={<Dashboard />} /> */}
       </Route>
       <Route path="/" element={<Redirect />} />
       <Route path="*" element={<NoMatch />} />

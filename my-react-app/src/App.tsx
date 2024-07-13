@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { MouseEventHandler, useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { search } from "./api/api";
 import { Animal, ResponseType } from "./api/api.types";
 import s from "./app.module.css";
@@ -12,6 +12,8 @@ export const App = () => {
   const [data, setData] = useState<Animal[]>([]);
   const [maxPage, setMaxPage] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(true);
+  const { page, detailId } = useParams();
+  const navigate = useNavigate();
 
   const searchDataHandler = (newSearch: string, page: string | undefined) => {
     if (!page) return;
@@ -25,17 +27,27 @@ export const App = () => {
       });
   };
 
+  const backdropClickHandler: MouseEventHandler<HTMLDivElement> = (e) => {
+    const isClickInsideDetailed = (e.target as HTMLElement).closest(
+      "#detailedCard",
+    );
+    if (!isClickInsideDetailed) {
+      navigate(`/page/${page}`);
+    }
+  };
+
   return (
     <ErrorBoundary>
+    {detailId && <div className={s.backdrop} onClick={backdropClickHandler} />}
       <SearchBlock
         searchDataHandler={searchDataHandler}
         isFetching={isFetching}
       />
-      <div className={s.contentWrap}>
-        <div className={s.cardsWrap}>
+      <div className={s.cardsWrap}>
+        <div className={s.contentWrap}>
           <CardsBlock data={data} isFetching={isFetching} />
-          <Outlet />
         </div>
+        <Outlet />
       </div>
       <Pagination maxPage={maxPage} />
     </ErrorBoundary>

@@ -1,14 +1,15 @@
-import { useParams } from "react-router-dom";
-import s from "./detailedCards.module.css";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchDetailed } from "../../api/api";
 import { Animal, ResponseDeatailedType } from "../../api/api.types";
 import { Loader } from "../Loader/Loader";
+import s from "./detailedCards.module.css";
 
 const DetailedCard = () => {
-  const { detailId } = useParams();
+  const { detailId, page } = useParams();
   const [isFetching, setIsFetching] = useState(true);
   const [detailedData, setDetailedData] = useState<Animal>();
+  const navigate = useNavigate();
 
   const getDetailedData = () => {
     if (!detailId) return;
@@ -25,25 +26,31 @@ const DetailedCard = () => {
     getDetailedData();
   }, [detailId]);
 
+  const closeHandler = () => {
+    navigate(`/page/${page}`);
+  };
+
   return (
-    <div>
-      <div className={s.detailedWrap}>
-        {isFetching ? (
-          <Loader />
-        ) : (
-          <div className={s.descriptionWrap}>
-            <div>
-              <p>Name: {detailedData?.name}</p>
-              <p>earthAnimal: {detailedData?.earthAnimal ? "yes" : "no"}</p>
-              <p>avian: {detailedData?.avian ? "yes" : "no"}</p>
-              <p>canine: {detailedData?.canine ? "yes" : "no"}</p>
-              <p>feline: {detailedData?.feline ? "yes" : "no"}</p>
+    <>
+      <div id="detailedCard">
+        <div className={s.detailedWrap}>
+          {isFetching ? (
+            <Loader />
+          ) : (
+            <div className={s.descriptionWrap}>
+              <div>
+                <p>Name: {detailedData?.name}</p>
+                <p>earthAnimal: {detailedData?.earthAnimal ? "yes" : "no"}</p>
+                <p>avian: {detailedData?.avian ? "yes" : "no"}</p>
+                <p>canine: {detailedData?.canine ? "yes" : "no"}</p>
+                <p>feline: {detailedData?.feline ? "yes" : "no"}</p>
+              </div>
+              <div onClick={closeHandler} className={s.close}></div>
             </div>
-            <div className={s.close}></div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
