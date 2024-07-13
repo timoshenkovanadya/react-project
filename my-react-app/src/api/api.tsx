@@ -6,7 +6,7 @@ const options = {
   },
 };
 
-export const search = (name: string, page: number = 0) => {
+export const search = (name: string, page: string = '0') => {
   return fetch(
     `https://stapi.co/api/v1/rest/animal/search?pageNumber=${page}&pageSize=20`,
     { ...options, body: `name=${name}` },
