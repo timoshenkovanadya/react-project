@@ -31,15 +31,15 @@ const DetailedCard = () => {
         {isFetching ? (
           <Loader />
         ) : (
-          <div>
-            <div className="card-name">Name: {JSON.stringify(detailedData?.name)}</div>
-            <div className="card-description">
-              Small description:
+          <div className={s.descriptionWrap}>
+            <div>
+              <p>Name: {detailedData?.name}</p>
               <p>earthAnimal: {detailedData?.earthAnimal ? "yes" : "no"}</p>
               <p>avian: {detailedData?.avian ? "yes" : "no"}</p>
               <p>canine: {detailedData?.canine ? "yes" : "no"}</p>
               <p>feline: {detailedData?.feline ? "yes" : "no"}</p>
             </div>
+            <div className={s.close}></div>
           </div>
         )}
       </div>
