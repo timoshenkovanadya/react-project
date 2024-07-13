@@ -8,7 +8,7 @@ const options = {
 
 export const search = (name: string, page: string = '0') => {
   return fetch(
-    `https://stapi.co/api/v1/rest/animal/search?pageNumber=${page}&pageSize=20`,
+    `https://stapi.co/api/v1/rest/animal/search?pageNumber=${Number(page)-1}&pageSize=10`,
     { ...options, body: `name=${name}` },
   );
 };
