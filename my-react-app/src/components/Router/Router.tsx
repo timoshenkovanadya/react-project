@@ -1,18 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "../Layout/Layout";
-import { NoMatch } from "../NoMatch/NoMatch";
 import { App } from "../../App";
+import { NoMatch } from "../NoMatch/NoMatch";
+import DetailedCard from "../DetailedCard/DetailedCard";
 
 export const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<App />}>
         <Route index element={<App />} />
-        {/* <Route path="about" element={<About />} />
-      <Route path="dashboard" element={<Dashboard />} /> */}
-
-        <Route path="*" element={<NoMatch />} />
+        <Route path="/detail/:detailId" element={<DetailedCard />} />
+        {/* <Route path="dashboard" element={<Dashboard />} /> */}
       </Route>
+      <Route path="*" element={<NoMatch />} />
     </Routes>
   );
 };

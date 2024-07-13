@@ -73,3 +73,7 @@
 .card-description {
   font-style: italic;
 }
+
+.link {
+  text-decoration: none;
+}

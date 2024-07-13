@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
 import { CardsBlockPropsType } from "./cardsBlock.types";
 
@@ -8,7 +9,11 @@ export const CardsBlock = ({ isFetching, data }: CardsBlockPropsType) => {
         <Loader />
       ) : (
         data?.map((item) => (
-          <div className="card-container" key={item.uid}>
+          <Link
+            className="link card-container"
+            key={item.uid}
+            to={`detail/${item.uid}`}
+          >
             <div className="card-name">Name: {JSON.stringify(item.name)}</div>
             <div className="card-description">
               Small description:
@@ -17,10 +22,9 @@ export const CardsBlock = ({ isFetching, data }: CardsBlockPropsType) => {
               <p>canine: {item.canine ? "yes" : "no"}</p>
               <p>feline: {item.feline ? "yes" : "no"}</p>
             </div>
-          </div>
+          </Link>
         ))
       )}
     </div>
   );
 };
-
