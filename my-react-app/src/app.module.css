@@ -1,0 +1,22 @@
+.contentWrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 220px);
+  box-sizing: border-box;
+  overflow: auto;
+  margin: 10px 0;
+  background-color: #050114;
+  width: auto;
+}
+
+.cardsWrap {
+  display: flex;
+  flex-direction: row;
+}
+
+.backdrop {
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  }

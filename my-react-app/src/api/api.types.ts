@@ -23,3 +23,6 @@ export type ResponseType = {
   };
   animals: Animal[];
 };
+export type ResponseDeatailedType = {
+  animal: Animal;
+};

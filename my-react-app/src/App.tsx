@@ -1,36 +1,55 @@
-import React from "react";
-import "./App.css";
+import { MouseEventHandler, useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { search } from "./api/api";
-import { ResponseType } from "./api/api.types";
+import { Animal, ResponseType } from "./api/api.types";
+import s from "./app.module.css";
 import { CardsBlock } from "./components/CardsBlock/CardsBlock";
-import { SearchBlock } from "./components/SearchBlock/SearchBlock";
-import { PropsType, StateType } from "./app.types";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import { Pagination } from "./components/Pagination/Pagination";
+import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 
-export class App extends React.Component<PropsType, StateType> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = { data: [], isFetching: true };
-  }
+export const App = () => {
+  const [data, setData] = useState<Animal[]>([]);
+  const [maxPage, setMaxPage] = useState<string>();
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const { page, detailId } = useParams();
+  const navigate = useNavigate();
 
-  searchDataHandler = (newSearch: string) => {
-    this.setState((prev) => ({ ...prev, isFetching: true }));
-    search(newSearch)
+  const searchDataHandler = (newSearch: string, page: string | undefined) => {
+    if (!page) return;
+    setIsFetching(true);
+    search(newSearch, page)
       .then((res) => res.json())
-      .then((data: ResponseType) =>
-        this.setState(() => ({ isFetching: false, data: data.animals })),
-      );
+      .then((data: ResponseType) => {
+        setIsFetching(false);
+        setData(data.animals);
+        setMaxPage(data.page.totalPages.toString());
+      });
   };
 
-  render(): React.ReactNode {
-    return (
-      <ErrorBoundary>
-        <SearchBlock
-          searchDataHandler={this.searchDataHandler}
-          isFetching={this.state.isFetching}
-        />
-        <CardsBlock data={this.state.data} isFetching={this.state.isFetching} />
-      </ErrorBoundary>
+  const backdropClickHandler: MouseEventHandler<HTMLDivElement> = (e) => {
+    const isClickInsideDetailed = (e.target as HTMLElement).closest(
+      "#detailedCard",
     );
-  }
-}
+    if (!isClickInsideDetailed) {
+      navigate(`/page/${page}`);
+    }
+  };
+
+  return (
+    <ErrorBoundary>
+    {detailId && <div className={s.backdrop} onClick={backdropClickHandler} />}
+      <SearchBlock
+        searchDataHandler={searchDataHandler}
+        isFetching={isFetching}
+      />
+      <div className={s.cardsWrap}>
+        <div className={s.contentWrap}>
+          <CardsBlock data={data} isFetching={isFetching} />
+        </div>
+        <Outlet />
+      </div>
+      <Pagination maxPage={maxPage} />
+    </ErrorBoundary>
+  );
+};
