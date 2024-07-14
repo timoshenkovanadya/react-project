@@ -45,7 +45,7 @@ const DetailedCard = () => {
                 <p>canine: {detailedData?.canine ? "yes" : "no"}</p>
                 <p>feline: {detailedData?.feline ? "yes" : "no"}</p>
               </div>
-              <div onClick={closeHandler} className={s.close}></div>
+              <div onClick={closeHandler} className={s.close} data-testid="close-button" ></div>
             </div>
           )}
         </div>
