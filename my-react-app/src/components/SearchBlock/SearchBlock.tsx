@@ -42,7 +42,11 @@ export const SearchBlock: React.FC<SearchBlockPropsType> = ({
 
   return (
     <div className="search-block-wrap">
-      <form className="search-block-form" onSubmit={submitHandler}>
+      <form
+        className="search-block-form"
+        data-testid="form"
+        onSubmit={submitHandler}
+      >
         <label className="search-block-label">
           Everything you want to know about animals from star tracks
           <input
@@ -63,6 +67,7 @@ export const SearchBlock: React.FC<SearchBlockPropsType> = ({
           value="Search"
         />
         <button
+          data-testid="error-button"
           className="throw-error-button"
           type="button"
           onClick={throwErrorHandler}
