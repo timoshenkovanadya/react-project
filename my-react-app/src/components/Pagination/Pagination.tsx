@@ -1,11 +1,13 @@
-import { PaginationPropsType } from "./pagination.types";
-import s from "./pagination.module.css";
-import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import s from "./pagination.module.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
-export const Pagination = ({ maxPage }: PaginationPropsType) => {
+export const Pagination = () => {
   const { page } = useParams();
   const navigate = useNavigate();
+  const maxPage = useSelector((store: RootState) => store.page.maxPage);
   const isPrevDisabled = useMemo(() => page === "1", [page]);
   const isNextDisabled = useMemo(() => page === maxPage, [page, maxPage]);
 

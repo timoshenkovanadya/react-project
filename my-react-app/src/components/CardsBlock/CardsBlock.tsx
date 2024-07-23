@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
 import { CardsBlockPropsType } from "./cardsBlock.types";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
-export const CardsBlock = ({ isFetching, data }: CardsBlockPropsType) => {
+export const CardsBlock = ({ isFetching }: CardsBlockPropsType) => {
+  const data = useSelector((store: RootState) => store.page.cards);
+  
   return (
     <div className="cards-block-wrap">
       {isFetching ? (

@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDetailed } from "../../api/api";
-import { Animal, ResponseDeatailedType } from "../../api/api.types";
+import { ResponseDeatailedType } from "../../api/api.types";
+import { AppDispatch, RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
 import s from "./detailedCards.module.css";
+import { setNewDetailed } from "../../store/detailedSlice";
 
 const DetailedCard = () => {
   const { detailId, page } = useParams();
   const [isFetching, setIsFetching] = useState(true);
-  const [detailedData, setDetailedData] = useState<Animal>();
+  // const [detailedData, setDetailedData] = useState<Animal>();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const detailedData = useSelector((state: RootState) => state.detailed.card);
 
   const getDetailedData = () => {
     if (!detailId) return;
@@ -18,7 +23,7 @@ const DetailedCard = () => {
       .then((res) => res.json())
       .then((data: ResponseDeatailedType) => {
         setIsFetching(false);
-        setDetailedData(data.animal);
+        dispatch(setNewDetailed(data.animal));
       });
   };
 
@@ -45,7 +50,11 @@ const DetailedCard = () => {
                 <p>canine: {detailedData?.canine ? "yes" : "no"}</p>
                 <p>feline: {detailedData?.feline ? "yes" : "no"}</p>
               </div>
-              <div onClick={closeHandler} className={s.close} data-testid="close-button" ></div>
+              <div
+                onClick={closeHandler}
+                className={s.close}
+                data-testid="close-button"
+              ></div>
             </div>
           )}
         </div>

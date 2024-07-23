@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Animal } from "../api/api.types";
 
-export interface PageState {
+export interface DetailedState {
   card: Animal | null;
 }
 
-const initialState: PageState = {
+const initialState: DetailedState = {
   card: null,
 };
 
