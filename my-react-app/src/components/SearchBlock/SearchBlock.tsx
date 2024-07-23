@@ -8,6 +8,7 @@ import React, {
 import { FormFieldsType, SearchBlockPropsType } from "./searchBlock.types";
 import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
 import { useNavigate, useParams } from "react-router-dom";
+import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 
 export const SearchBlock: React.FC<SearchBlockPropsType> = ({
   searchDataHandler,
@@ -75,6 +76,7 @@ export const SearchBlock: React.FC<SearchBlockPropsType> = ({
           Throw error
         </button>
       </form>
+      <ThemeToggle />
     </div>
   );
 };

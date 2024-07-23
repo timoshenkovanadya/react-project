@@ -7,6 +7,8 @@ import { CardsBlock } from "./components/CardsBlock/CardsBlock";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 import { Pagination } from "./components/Pagination/Pagination";
 import { SearchBlock } from "./components/SearchBlock/SearchBlock";
+import { ThemeContext } from "./context/ThemeContext";
+import { ThemeType } from "./app.types";
 
 export const App = () => {
   const [data, setData] = useState<Animal[]>([]);
@@ -14,6 +16,8 @@ export const App = () => {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const { page, detailId } = useParams();
   const navigate = useNavigate();
+
+  const [theme, setTheme] = useState<ThemeType>("dark");
 
   const searchDataHandler = (newSearch: string, page: string | undefined) => {
     if (!page) return;
@@ -37,19 +41,23 @@ export const App = () => {
   };
 
   return (
-    <ErrorBoundary>
-    {detailId && <div className={s.backdrop} onClick={backdropClickHandler} />}
-      <SearchBlock
-        searchDataHandler={searchDataHandler}
-        isFetching={isFetching}
-      />
-      <div className={s.cardsWrap}>
-        <div className={s.contentWrap}>
-          <CardsBlock data={data} isFetching={isFetching} />
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <ErrorBoundary>
+        {detailId && (
+          <div className={s.backdrop} onClick={backdropClickHandler} />
+        )}
+        <SearchBlock
+          searchDataHandler={searchDataHandler}
+          isFetching={isFetching}
+        />
+        <div className={s.cardsWrap}>
+          <div className={s.contentWrap}>
+            <CardsBlock data={data} isFetching={isFetching} />
+          </div>
+          <Outlet />
         </div>
-        <Outlet />
-      </div>
-      <Pagination maxPage={maxPage} />
-    </ErrorBoundary>
+        <Pagination maxPage={maxPage} />
+      </ErrorBoundary>
+    </ThemeContext.Provider>
   );
 };
