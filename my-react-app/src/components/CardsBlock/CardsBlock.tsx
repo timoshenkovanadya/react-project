@@ -3,18 +3,21 @@ import { Loader } from "../Loader/Loader";
 import { CardsBlockPropsType } from "./cardsBlock.types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export const CardsBlock = ({ isFetching }: CardsBlockPropsType) => {
   const data = useSelector((store: RootState) => store.page.cards);
-  
-  return (
-    <div className="cards-block-wrap">
+  const { theme } = useContext(ThemeContext);
+
+ return (
+    <div className={theme==="dark"? "cards-block-wrap" : "cards-block-wrap-light"}>
       {isFetching ? (
         <Loader />
       ) : (
         data?.map((item) => (
           <Link
-            className="link card-container"
+            className={theme==='dark'? "link card-container" : "link card-container-light"}
             key={item.uid}
             to={`detail/${item.uid}`}
           >

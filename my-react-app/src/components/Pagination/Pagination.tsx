@@ -1,8 +1,9 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import s from "./pagination.module.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export const Pagination = () => {
   const { page } = useParams();
@@ -10,6 +11,7 @@ export const Pagination = () => {
   const maxPage = useSelector((store: RootState) => store.page.maxPage);
   const isPrevDisabled = useMemo(() => page === "1", [page]);
   const isNextDisabled = useMemo(() => page === maxPage, [page, maxPage]);
+  const { theme } = useContext(ThemeContext);
 
   const prevHandler = useCallback(() => {
     navigate(`/page/${Number(page) - 1}`);
@@ -21,7 +23,7 @@ export const Pagination = () => {
   if (!page) return null;
 
   return (
-    <div className={s.paginationWrap}>
+    <div className={theme==="dark"? s.paginationWrap : s.paginationWrapLight}>
       <button
         disabled={isPrevDisabled}
         onClick={prevHandler}
@@ -29,7 +31,7 @@ export const Pagination = () => {
       >
         Prev
       </button>
-      <div className={s.current}>Page: {page}</div>
+      <div className={theme==="dark"? s.current : s.currentLight}>Page: {page}</div>
       <button
         disabled={isNextDisabled}
         onClick={nextHandler}

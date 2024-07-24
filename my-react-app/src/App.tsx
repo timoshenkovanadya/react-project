@@ -61,7 +61,7 @@ export const App = () => {
           isFetching={isFetching}
         />
         <div className={s.cardsWrap}>
-          <div className={s.contentWrap}>
+          <div className={theme==='dark'? s.contentWrap: s.contentWrapLight}>
             <CardsBlock isFetching={isFetching} />
           </div>
           <Outlet />
