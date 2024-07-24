@@ -5,11 +5,13 @@ import { Animal } from "../api/api.types";
 export interface PageState {
   cards: Animal[];
   maxPage: string;
+  isFetching: boolean;
 }
 
 const initialState: PageState = {
   cards: [],
   maxPage: "1",
+  isFetching: false,
 };
 
 export const pageSlice = createSlice({
@@ -22,10 +24,14 @@ export const pageSlice = createSlice({
     setMaxPage: (state, action: PayloadAction<string>) => {
       state.maxPage = action.payload;
     },
+    toggleIsFetching: (state, action: PayloadAction<boolean>) => {
+      state.isFetching = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setNewPageCards, setMaxPage } = pageSlice.actions;
+export const { setNewPageCards, setMaxPage, toggleIsFetching } =
+  pageSlice.actions;
 
 export default pageSlice.reducer;

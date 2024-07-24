@@ -1,5 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GetCardsArgType, ResponseDeatailedType, ResponseType } from "./api.types";
+import {
+  GetCardsArgType,
+  ResponseDeatailedType,
+  ResponseType,
+} from "./api.types";
+import {
+  setMaxPage,
+  setNewPageCards,
+  toggleIsFetching,
+} from "../store/pageSlice";
+import { setNewDetailed } from "../store/detailedSlice";
 
 export const cardsService = createApi({
   reducerPath: "cardsService",
@@ -15,12 +25,25 @@ export const cardsService = createApi({
         },
         body: { name },
       }),
+
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        dispatch(toggleIsFetching(true));
+        const resp = await queryFulfilled;
+        dispatch(toggleIsFetching(false));
+        if ("data" in resp) {
+          dispatch(setNewPageCards(resp.data?.animals));
+          dispatch(setMaxPage(resp.data?.page?.totalPages?.toString()));
+        }
+      },
     }),
     getDetailed: builder.query<ResponseDeatailedType, string>({
       query: (detailedId) => `animal?uid=${detailedId}`,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const resp = await queryFulfilled;
+        if ("data" in resp) {
+          dispatch(setNewDetailed(resp.data.animal));
+        }
+      },
     }),
   }),
 });
-
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints

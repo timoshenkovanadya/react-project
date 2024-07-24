@@ -1,33 +1,26 @@
-import React, {
-  useState,
-  useEffect,
-  ChangeEvent,
-  FormEvent,
-  useRef,
-} from "react";
-import { FormFieldsType, SearchBlockPropsType } from "./searchBlock.types";
-import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { cardsService } from "../../api/cardsService";
+import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
 import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
+import { FormFieldsType } from "./searchBlock.types";
 
-export const SearchBlock: React.FC<SearchBlockPropsType> = ({
-  searchDataHandler,
-  isFetching,
-}) => {
+export const SearchBlock = () => {
   const ref = useRef<HTMLInputElement | null>(null);
   const { page } = useParams();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useValueWithLocalStorage();
   const [isError, setIsError] = useState<boolean>(false);
+  const [getCardsTrigger, { isLoading }] = cardsService.useGetCardsMutation();
 
   useEffect(() => {
-    searchDataHandler(searchValue, page);
+    getCardsTrigger({ name: searchValue, page });
   }, [page]);
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     const newValue = (e.target as FormFieldsType).elements.searchValue.value;
-    searchDataHandler(newValue, "1");
+    getCardsTrigger({ name: newValue, page });
     navigate(`/page/1`);
   };
 
@@ -57,12 +50,12 @@ export const SearchBlock: React.FC<SearchBlockPropsType> = ({
             id="searchValue"
             value={searchValue}
             onChange={changeHandler}
-            disabled={isFetching}
+            disabled={isLoading}
             ref={ref}
           />
         </label>
         <input
-          disabled={isFetching}
+          disabled={isLoading}
           className="search-block-button"
           type="submit"
           value="Search"

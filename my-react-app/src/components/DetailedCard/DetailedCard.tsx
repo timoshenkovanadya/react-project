@@ -1,35 +1,18 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchDetailed } from "../../api/api";
-import { ResponseDeatailedType } from "../../api/api.types";
-import { AppDispatch, RootState } from "../../store/store";
+import { cardsService } from "../../api/cardsService";
+import { RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
 import s from "./detailedCards.module.css";
-import { setNewDetailed } from "../../store/detailedSlice";
 
 const DetailedCard = () => {
   const { detailId, page } = useParams();
-  const [isFetching, setIsFetching] = useState(true);
-  // const [detailedData, setDetailedData] = useState<Animal>();
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
   const detailedData = useSelector((state: RootState) => state.detailed.card);
-
-  const getDetailedData = () => {
-    if (!detailId) return;
-    setIsFetching(true);
-    fetchDetailed(detailId)
-      .then((res) => res.json())
-      .then((data: ResponseDeatailedType) => {
-        setIsFetching(false);
-        dispatch(setNewDetailed(data.animal));
-      });
-  };
-
-  useEffect(() => {
-    getDetailedData();
-  }, [detailId]);
+  const { isFetching } = cardsService.useGetDetailedQuery(detailId!, {
+    skip: !detailId,
+    refetchOnMountOrArgChange: true,
+  });
 
   const closeHandler = () => {
     navigate(`/page/${page}`);
