@@ -26,3 +26,5 @@ export type ResponseType = {
 export type ResponseDeatailedType = {
   animal: Animal;
 };
+
+export type GetCardsArgType = { name: string; page?: string };
