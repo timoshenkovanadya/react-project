@@ -16,15 +16,20 @@ export const cardsService = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://stapi.co/api/v1/rest/" }),
   endpoints: (builder) => ({
     getCards: builder.mutation<ResponseType, GetCardsArgType>({
-      query: ({ name, page }) => ({
-        url: `animal/search?pageNumber=${Number(page) - 1}&pageSize=10`,
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: { name },
-      }),
+      query: ({ name, page }) => {
+        // const formData = new FormData();
+        // formData.append('name', name)
+        return {
+          url: `animal/search?pageNumber=${Number(page) - 1}&pageSize=10`,
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `name=${name}`,
+          // formData: true,
+        };
+      },
 
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         dispatch(toggleIsFetching(true));
