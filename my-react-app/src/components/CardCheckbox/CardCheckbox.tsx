@@ -1,16 +1,16 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { adapterSelectors, RootState, toggleSelected } from "../../store/store";
 import { CardCheckboxPropsType } from "./cardCheckbox.types";
-import { adapterSelectors, store, toggleSelected } from "../../store/store";
-import { useDispatch } from "react-redux";
 
 export const CardCheckbox = ({ animal }: CardCheckboxPropsType) => {
-  const dispatch = useDispatch();
-  const [isChecked, setIsChecked] = useState<boolean>(
-    !!adapterSelectors.selectById(store.getState(), animal.uid),
+  const isChecked = !!useSelector((store: RootState) =>
+    adapterSelectors.selectById(store, animal.uid),
   );
+  const dispatch = useDispatch();
+
   const clickHandler = (e: ChangeEvent) => {
     e.stopPropagation();
-    setIsChecked((prev) => !prev);
     dispatch(toggleSelected(animal));
   };
 
