@@ -17,8 +17,6 @@ export const cardsService = createApi({
   endpoints: (builder) => ({
     getCards: builder.mutation<ResponseType, GetCardsArgType>({
       query: ({ name, page }) => {
-        // const formData = new FormData();
-        // formData.append('name', name)
         return {
           url: `animal/search?pageNumber=${Number(page) - 1}&pageSize=10`,
           method: "POST",
@@ -27,7 +25,6 @@ export const cardsService = createApi({
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: `name=${name}`,
-          // formData: true,
         };
       },
 

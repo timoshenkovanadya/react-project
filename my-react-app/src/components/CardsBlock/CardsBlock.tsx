@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 import { RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
+import { CardCheckbox } from "../CardCheckbox/CardCheckbox";
 
 export const CardsBlock = () => {
   const data = useSelector((store: RootState) => store.page.cards);
@@ -37,6 +38,7 @@ export const CardsBlock = () => {
               <p>canine: {item.canine ? "yes" : "no"}</p>
               <p>feline: {item.feline ? "yes" : "no"}</p>
             </div>
+            <CardCheckbox animal={item} />
           </Link>
         ))
       )}
