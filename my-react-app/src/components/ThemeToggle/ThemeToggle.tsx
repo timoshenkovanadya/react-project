@@ -7,6 +7,7 @@ export const ThemeToggle = () => {
   
   return (
     <>
+    <div> switch theme
       <input
         checked={theme === "dark"}
         onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -21,6 +22,8 @@ export const ThemeToggle = () => {
       >
         <span className={s.switchButton} />
       </label>
+    </div>
+      
     </>
   );
 };

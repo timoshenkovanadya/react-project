@@ -13,7 +13,16 @@
   align-items: center;
   background-color: #050114;
   color: beige;
-  height: 150px;
+  height: 200px;
+}
+
+.search-block-wrap-light {
+  background-color: rgb(217, 234, 228);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #050114;
+  height: 200px;
 }
 
 .search-block-form {
