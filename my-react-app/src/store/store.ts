@@ -32,6 +32,8 @@ const adapterSlice = createSlice({
 
 export const { toggleSelected, removeAllSelected } = adapterSlice.actions;
 
+export const adapterReducer = adapterSlice.reducer;
+
 export const adapterSelectors = cardsAdapter.getSelectors<RootState>(
   (state) => state.adapter,
 );
