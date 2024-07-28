@@ -1,16 +1,24 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import s from "./flyout.module.css";
 import { adapterSelectors, RootState, toggleSelected } from "../../store/store";
-import { useCallback, useMemo } from "react";
+import s from "./flyout.module.css";
+import { convertToCSV } from "./flyout.helpers";
 
 const Flyout = () => {
   const dispatch = useDispatch();
+  const [csvURL, setCsvURL] = useState<string>();
   const animals = useSelector((store: RootState) =>
     adapterSelectors.selectAll(store),
   );
   const count = useMemo(() => animals?.length, [animals]);
+
   const unselectHandler = useCallback(() => {
     animals.forEach((animal) => dispatch(toggleSelected(animal)));
+  }, [animals]);
+
+  useEffect(() => {
+    const csvData = new Blob([convertToCSV(animals)], { type: "text/csv" });
+    setCsvURL(URL.createObjectURL(csvData));
   }, [animals]);
 
   if (!count) return null;
@@ -20,7 +28,9 @@ const Flyout = () => {
       <button className={s.button} onClick={unselectHandler}>
         Unselect all
       </button>
-      <button className={s.button}>Download</button>
+      <a href={csvURL} download={`${count}_animals.csv`}>
+        <button className={s.button}>Download</button>
+      </a>
     </div>
   );
 };
