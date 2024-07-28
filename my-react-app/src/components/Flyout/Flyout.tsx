@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adapterSelectors, RootState, toggleSelected } from "../../store/store";
 import s from "./flyout.module.css";
 import { convertToCSV } from "./flyout.helpers";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Flyout = () => {
   const dispatch = useDispatch();
+  const { theme } = useContext(ThemeContext);
   const [csvURL, setCsvURL] = useState<string>();
   const animals = useSelector((store: RootState) =>
     adapterSelectors.selectAll(store),
@@ -23,7 +25,7 @@ const Flyout = () => {
 
   if (!count) return null;
   return (
-    <div className={s.wrap}>
+    <div className={`${s.wrap} ${theme === 'light' ? s.light : ''}`}>
       <div className={s.label}>{count} items are selected</div>
       <button className={s.button} onClick={unselectHandler}>
         Unselect all

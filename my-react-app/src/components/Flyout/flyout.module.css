@@ -14,9 +14,13 @@
   padding: 2px;
   font-size: 15px;
 }
+.light {
+  background-color: rgb(212, 216, 220);
+  color: rgb(0, 0, 0);
+}
 
 .label {
-    line-height: 30px;
+  line-height: 30px;
 }
 
 .button {

@@ -12,6 +12,5 @@ export const convertToCSV = (objArray: unknown[]) => {
     }
     str += line + "\r\n";
   }
-  console.log(str);
   return str;
 };
