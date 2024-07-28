@@ -38,6 +38,8 @@ export const adapterSelectors = cardsAdapter.getSelectors<RootState>(
   (state) => state.adapter,
 );
 
+export const storeMiddleware = '';
+
 export const store = configureStore({
   reducer: {
     page: pageReducer,

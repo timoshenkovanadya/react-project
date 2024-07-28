@@ -7,7 +7,7 @@ import { RootState } from "../../store/store";
 import { CardsBlock } from "./CardsBlock";
 
 // Mock data for testing
-const mockData: Animal[] = [
+export const mockData: Animal[] = [
   {
     uid: "1",
     name: "Lion",
