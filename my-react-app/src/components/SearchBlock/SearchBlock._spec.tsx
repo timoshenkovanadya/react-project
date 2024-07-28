@@ -5,13 +5,10 @@ import SearchBlock from "./SearchBlock";
 
 const mockSearchDataHandler = vitest.fn();
 
-const renderComponent = (isFetching: boolean = false) => {
+const renderComponent = () => {
   render(
     <Router>
-      <SearchBlock
-        searchDataHandler={mockSearchDataHandler}
-        isFetching={isFetching}
-      />
+      <SearchBlock />
     </Router>,
   );
 };
@@ -52,7 +49,7 @@ describe("SearchBlock", () => {
   });
 
   test("disables input and button when isFetching is true", () => {
-    renderComponent(true);
+    renderComponent();
     expect(screen.getByRole("textbox")).toBeDisabled();
     expect(screen.getByRole("button", { name: /search/i })).toBeDisabled();
   });
