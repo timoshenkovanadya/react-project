@@ -7,6 +7,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 import { Pagination } from "./components/Pagination/Pagination";
 import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 import { ThemeContext } from "./context/ThemeContext";
+import Flyout from "./components/Flyout/Flyout";
 
 export const App = () => {
   const { page, detailId } = useParams();
@@ -39,6 +40,7 @@ export const App = () => {
           <Outlet />
         </div>
         <Pagination />
+        <Flyout />
       </ErrorBoundary>
     </ThemeContext.Provider>
   );
