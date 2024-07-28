@@ -1,0 +1,31 @@
+.wrap {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  left: 3px;
+  bottom: 3px;
+  background-color: rgb(75, 84, 93);
+  color: white;
+  border: 1px solid rgb(165, 166, 168);
+  height: 30px;
+  width: 330px;
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 15px;
+}
+.light {
+  background-color: rgb(212, 216, 220);
+  color: rgb(0, 0, 0);
+}
+
+.label {
+  line-height: 30px;
+}
+
+.button {
+  height: 25px;
+  border-radius: 3px;
+  padding: 3px 7px;
+  cursor: pointer;
+}

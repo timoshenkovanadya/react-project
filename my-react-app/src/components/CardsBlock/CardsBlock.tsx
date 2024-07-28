@@ -1,16 +1,32 @@
+import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../../context/ThemeContext";
+import { RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
-import { CardsBlockPropsType } from "./cardsBlock.types";
+import { CardCheckbox } from "../CardCheckbox/CardCheckbox";
 
-export const CardsBlock = ({ isFetching, data }: CardsBlockPropsType) => {
+export const CardsBlock = () => {
+  const data = useSelector((store: RootState) => store.page.cards);
+  const { theme } = useContext(ThemeContext);
+  const isFetching = useSelector((state: RootState) => state.page.isFetching);
+
   return (
-    <div className="cards-block-wrap">
+    <div
+      className={
+        theme === "dark" ? "cards-block-wrap" : "cards-block-wrap-light"
+      }
+    >
       {isFetching ? (
         <Loader />
       ) : (
         data?.map((item) => (
           <Link
-            className="link card-container"
+            className={
+              theme === "dark"
+                ? "link card-container"
+                : "link card-container-light"
+            }
             key={item.uid}
             to={`detail/${item.uid}`}
           >
@@ -22,6 +38,7 @@ export const CardsBlock = ({ isFetching, data }: CardsBlockPropsType) => {
               <p>canine: {item.canine ? "yes" : "no"}</p>
               <p>feline: {item.feline ? "yes" : "no"}</p>
             </div>
+            <CardCheckbox animal={item} />
           </Link>
         ))
       )}

@@ -1,6 +1,4 @@
-body {
-  background-color: #050114
-}
+
 
 .title {
   background-color: red;
@@ -15,7 +13,16 @@ body {
   align-items: center;
   background-color: #050114;
   color: beige;
-  height: 150px;
+  height: 200px;
+}
+
+.search-block-wrap-light {
+  background-color: rgb(217, 234, 228);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #050114;
+  height: 200px;
 }
 
 .search-block-form {
@@ -52,12 +59,21 @@ body {
 }
 
 .cards-block-wrap {
-  padding: 1rem;
+  padding: 0.5rem;
   display: inline-flex;
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 0.5rem;
   background-color: #050114;
+}
+
+.cards-block-wrap-light {
+  padding: 1rem;
+  display: inline-flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background-color:  beige;
 }
 .card-container {
   padding: 1rem;
@@ -69,6 +85,19 @@ body {
   width: 15%;
   height: 200px;
   border: 1px solid beige;
+  width: 160px;
+}
+
+.card-container-light {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  color: #050114;
+  align-items: center;
+  gap: 1rem;
+  width: 15%;
+  height: 200px;
+  border: 1px solid #050114;
   width: 160px;
 }
 .card-name {
