@@ -6,8 +6,13 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -16,7 +21,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
 
     /* Linting */
     "strict": true,
@@ -24,5 +29,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "./src", "./dist/types/**/*.ts", "./next-env.d.ts"],
+  "exclude": ["./node_modules"]
 }
