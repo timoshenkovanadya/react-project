@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   ChangeEvent,
@@ -8,18 +8,17 @@ import {
   useRef,
   useState,
 } from "react";
-import { useParams } from "react-router-dom";
 import { cardsService } from "../../api/cardsService";
+import { ThemeContext } from "../../context/ThemeContext";
 import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
 import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 import { FormFieldsType } from "./searchBlock.types";
-import { ThemeContext } from "../../context/ThemeContext";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 export const SearchBlock = () => {
   const ref = useRef<HTMLInputElement | null>(null);
-  const { page } = useParams();
   const router = useRouter();
+  const [page] = (router.query.slug as string[] | undefined) || [];
   const [searchValue, setSearchValue] = useValueWithLocalStorage();
   const [isError, setIsError] = useState<boolean>(false);
   const [getCardsTrigger, { isLoading }] = cardsService.useGetCardsMutation();

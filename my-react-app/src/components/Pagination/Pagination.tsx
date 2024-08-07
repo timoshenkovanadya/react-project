@@ -1,14 +1,15 @@
-import { useRouter } from "next/navigation";
+'use client'
+
 import { useCallback, useContext, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 import { RootState } from "../../store/store";
 import s from "./pagination.module.css";
+import { useRouter } from "next/router";
 
 export const Pagination = () => {
-  const { page } = useParams();
   const router = useRouter();
+  const [page] = (router.query.slug as string[] | undefined) || [];
   const maxPage = useSelector((store: RootState) => store.page.maxPage);
   const isPrevDisabled = useMemo(() => page === "1", [page]);
   const isNextDisabled = useMemo(() => page === maxPage, [page, maxPage]);

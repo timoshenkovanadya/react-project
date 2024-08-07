@@ -1,10 +1,12 @@
+'use client'
+
 import { useContext } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 import { RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
 import { CardCheckbox } from "../CardCheckbox/CardCheckbox";
+import Link from "next/link";
 
 export const CardsBlock = () => {
   const data = useSelector((store: RootState) => store.page.cards);
@@ -28,7 +30,7 @@ export const CardsBlock = () => {
                 : "link card-container-light"
             }
             key={item.uid}
-            to={`detail/${item.uid}`}
+            href={`detail/${item.uid}`}
           >
             <div className="card-name">Name: {JSON.stringify(item.name)}</div>
             <div className="card-description">

@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adapterSelectors, RootState, toggleSelected } from "../../store/store";
