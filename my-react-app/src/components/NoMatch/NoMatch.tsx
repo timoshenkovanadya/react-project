@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import s from './noMatch.module.css'
+import { useRouter } from "next/navigation";
+import s from "./noMatch.module.css";
 
 export const NoMatch = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const goHome = () => {
-    navigate("/");
+    router.push("/");
   };
 
   return (

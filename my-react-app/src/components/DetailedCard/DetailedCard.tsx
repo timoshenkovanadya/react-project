@@ -1,5 +1,6 @@
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { cardsService } from "../../api/cardsService";
 import { RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
@@ -7,7 +8,7 @@ import s from "./detailedCards.module.css";
 
 const DetailedCard = () => {
   const { detailId, page } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const detailedData = useSelector((state: RootState) => state.detailed.card);
   const { isFetching } = cardsService.useGetDetailedQuery(detailId!, {
     skip: !detailId,
@@ -15,7 +16,7 @@ const DetailedCard = () => {
   });
 
   const closeHandler = () => {
-    navigate(`/page/${page}`);
+    router.push(`/page/${page}`);
   };
 
   return (

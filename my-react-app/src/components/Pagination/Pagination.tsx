@@ -1,23 +1,24 @@
+import { useRouter } from "next/navigation";
 import { useCallback, useContext, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import s from "./pagination.module.css";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { useParams } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
+import { RootState } from "../../store/store";
+import s from "./pagination.module.css";
 
 export const Pagination = () => {
   const { page } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const maxPage = useSelector((store: RootState) => store.page.maxPage);
   const isPrevDisabled = useMemo(() => page === "1", [page]);
   const isNextDisabled = useMemo(() => page === maxPage, [page, maxPage]);
   const { theme } = useContext(ThemeContext);
 
   const prevHandler = useCallback(() => {
-    navigate(`/page/${Number(page) - 1}`);
+    router.push(`/page/${Number(page) - 1}`);
   }, [page]);
   const nextHandler = useCallback(() => {
-    navigate(`/page/${Number(page) + 1}`);
+    router.push(`/page/${Number(page) + 1}`);
   }, [page]);
 
   if (!page) return null;

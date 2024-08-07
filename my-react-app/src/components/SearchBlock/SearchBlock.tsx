@@ -1,5 +1,12 @@
-import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useParams } from "react-router-dom";
 import { cardsService } from "../../api/cardsService";
 import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
 import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
@@ -9,7 +16,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 export const SearchBlock = () => {
   const ref = useRef<HTMLInputElement | null>(null);
   const { page } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [searchValue, setSearchValue] = useValueWithLocalStorage();
   const [isError, setIsError] = useState<boolean>(false);
   const [getCardsTrigger, { isLoading }] = cardsService.useGetCardsMutation();
@@ -37,7 +44,11 @@ export const SearchBlock = () => {
   if (isError) throw new Error("THIS IS TEST ERROR");
 
   return (
-    <div className={theme==='dark'? "search-block-wrap" : "search-block-wrap-light"}>
+    <div
+      className={
+        theme === "dark" ? "search-block-wrap" : "search-block-wrap-light"
+      }
+    >
       <form
         className="search-block-form"
         data-testid="form"

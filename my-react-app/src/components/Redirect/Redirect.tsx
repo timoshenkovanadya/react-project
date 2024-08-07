@@ -1,10 +1,10 @@
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const Redirect = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   useEffect(() => {
-    navigate("/page/1");
+    router.push("/page/1");
   }, []);
   return null;
 };
