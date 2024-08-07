@@ -1,17 +1,18 @@
+import { useRouter } from "next/navigation";
 import { MouseEventHandler, useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import s from "./app.module.css";
 import { ThemeType } from "./app.types";
 import { CardsBlock } from "./components/CardsBlock/CardsBlock";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import Flyout from "./components/Flyout/Flyout";
 import { Pagination } from "./components/Pagination/Pagination";
 import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 import { ThemeContext } from "./context/ThemeContext";
-import Flyout from "./components/Flyout/Flyout";
 
 export const App = () => {
   const { page, detailId } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [theme, setTheme] = useState<ThemeType>("dark");
 
@@ -20,7 +21,7 @@ export const App = () => {
       "#detailedCard",
     );
     if (!isClickInsideDetailed) {
-      navigate(`/page/${page}`);
+      router.push(`/page/${page}`);
     }
   };
 
