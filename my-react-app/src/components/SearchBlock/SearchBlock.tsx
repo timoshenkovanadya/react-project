@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ChangeEvent,
   FormEvent,
@@ -12,6 +14,7 @@ import { useValueWithLocalStorage } from "../../hooks/useValueWithLocalStorage";
 import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 import { FormFieldsType } from "./searchBlock.types";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useRouter } from "next/navigation";
 
 export const SearchBlock = () => {
   const ref = useRef<HTMLInputElement | null>(null);
@@ -30,7 +33,7 @@ export const SearchBlock = () => {
     e.preventDefault();
     const newValue = (e.target as FormFieldsType).elements.searchValue.value;
     getCardsTrigger({ name: newValue, page });
-    navigate(`/page/1`);
+    router.push(`/page/1`);
   };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {

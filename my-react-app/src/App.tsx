@@ -9,6 +9,8 @@ import Flyout from "./components/Flyout/Flyout";
 import { Pagination } from "./components/Pagination/Pagination";
 import { SearchBlock } from "./components/SearchBlock/SearchBlock";
 import { ThemeContext } from "./context/ThemeContext";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 export const App = () => {
   const { page, detailId } = useParams();
@@ -26,23 +28,25 @@ export const App = () => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      <ErrorBoundary>
-        {detailId && (
-          <div className={s.backdrop} onClick={backdropClickHandler} />
-        )}
-        <SearchBlock />
-        <div className={s.cardsWrap}>
-          <div
-            className={theme === "dark" ? s.contentWrap : s.contentWrapLight}
-          >
-            <CardsBlock />
+    <Provider store={store}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <ErrorBoundary>
+          {detailId && (
+            <div className={s.backdrop} onClick={backdropClickHandler} />
+          )}
+          <SearchBlock />
+          <div className={s.cardsWrap}>
+            <div
+              className={theme === "dark" ? s.contentWrap : s.contentWrapLight}
+            >
+              <CardsBlock />
+            </div>
+            <Outlet />
           </div>
-          <Outlet />
-        </div>
-        <Pagination />
-        <Flyout />
-      </ErrorBoundary>
-    </ThemeContext.Provider>
+          <Pagination />
+          <Flyout />
+        </ErrorBoundary>
+      </ThemeContext.Provider>
+    </Provider>
   );
 };

@@ -1,12 +1,12 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 export const useValueWithLocalStorage = () => {
-  const [searchValue, setSearchValue] = useState<string>(
-    window.localStorage.getItem("searchValue") || "",
-  );
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
-    window.localStorage.setItem("searchValue", searchValue);
+    localStorage.setItem("searchValue", searchValue);
   }, [searchValue]);
 
   return [searchValue, setSearchValue] as const;
