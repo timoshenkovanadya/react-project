@@ -58,11 +58,11 @@ const renderComponent = (detailId: string, page: string) => {
   //   detailed: { card: null },
   // });
   return render(
-    <MemoryRouter initialEntries={[`/detail/${detailId}/page/${page}`]}>
+    <MemoryRouter initialEntries={[`/${page}/${detailId}`]}>
       <Provider store={store}>
         <Routes>
           <Route
-            path="/detail/:detailId/page/:page"
+            path="/:detailId/:page"
             element={<DetailedCard />}
           />
         </Routes>

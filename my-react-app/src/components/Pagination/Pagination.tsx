@@ -9,17 +9,17 @@ import { useRouter } from "next/router";
 
 export const Pagination = () => {
   const router = useRouter();
-  const page = router.query.page;
+  const page = router.query.slug?.[0];
   const maxPage = useSelector((store: RootState) => store.page.maxPage);
   const isPrevDisabled = useMemo(() => page === "1", [page]);
   const isNextDisabled = useMemo(() => page === maxPage, [page, maxPage]);
   const { theme } = useContext(ThemeContext);
 
   const prevHandler = useCallback(() => {
-    router.push(`/page/${Number(page) - 1}`);
+    router.push(`/${Number(page) - 1}`);
   }, [page]);
   const nextHandler = useCallback(() => {
-    router.push(`/page/${Number(page) + 1}`);
+    router.push(`/${Number(page) + 1}`);
   }, [page]);
 
   if (!page) return null;

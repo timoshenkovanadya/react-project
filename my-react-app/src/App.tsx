@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import s from "./app.module.css";
 import { ThemeType } from "./app.types";
@@ -18,17 +18,21 @@ export const App = () => {
   const router = useRouter();
 
   const [theme, setTheme] = useState<ThemeType>("dark");
-  const page = router.query.page;
-  const detailId = router.query.detailedId;
+  const page = router.query.slug?.[0];
+  const detailId = router.query.slug?.[1];
 
   const backdropClickHandler: MouseEventHandler<HTMLDivElement> = (e) => {
     const isClickInsideDetailed = (e.target as HTMLElement).closest(
       "#detailedCard",
     );
     if (!isClickInsideDetailed) {
-      router.push(`/page/${page || "1"}`);
+      router.push(`/${page || "1"}`);
     }
   };
+
+  useEffect(() => {
+    if (!page) router.push("/1");
+  }, []);
 
   return (
     <Provider store={store}>

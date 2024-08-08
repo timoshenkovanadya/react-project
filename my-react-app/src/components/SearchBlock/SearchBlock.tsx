@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 export const SearchBlock = () => {
   const ref = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
-  const page = router.query.page as string | undefined;
+  const page = router.query.slug?.[0] as string | undefined;
   const [searchValue, setSearchValue] = useValueWithLocalStorage();
   const [isError, setIsError] = useState<boolean>(false);
   const [getCardsTrigger, { isLoading }] = cardsService.useGetCardsMutation();
@@ -32,7 +32,7 @@ export const SearchBlock = () => {
     e.preventDefault();
     const newValue = (e.target as FormFieldsType).elements.searchValue.value;
     getCardsTrigger({ name: newValue, page });
-    router.push(`/page/1`);
+    router.push(`/1`);
   };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {

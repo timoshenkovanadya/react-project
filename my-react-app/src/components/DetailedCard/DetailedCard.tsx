@@ -7,8 +7,8 @@ import s from "./detailedCards.module.css";
 
 const DetailedCard = () => {
   const router = useRouter();
-  const page = router.query.page as string | undefined;
-  const detailId = router.query.detailedId as string | undefined;
+  const page = router.query.slug?.[0] as string | undefined;
+  const detailId = router.query.slug?.[1] as string | undefined;
   const detailedData = useSelector((state: RootState) => state.detailed.card);
   const { isFetching } = cardsService.useGetDetailedQuery(detailId!, {
     skip: !detailId,
@@ -16,7 +16,7 @@ const DetailedCard = () => {
   });
 
   const closeHandler = () => {
-    router.push(`/page/${page}`);
+    router.push(`/${page}`);
   };
 
   return (
