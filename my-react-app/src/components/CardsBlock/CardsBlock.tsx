@@ -7,9 +7,12 @@ import { RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
 import { CardCheckbox } from "../CardCheckbox/CardCheckbox";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export const CardsBlock = () => {
+  const router = useRouter();
   const data = useSelector((store: RootState) => store.page.cards);
+  const page = router.query.page;
   const { theme } = useContext(ThemeContext);
   const isFetching = useSelector((state: RootState) => state.page.isFetching);
 
@@ -30,7 +33,7 @@ export const CardsBlock = () => {
                 : "link card-container-light"
             }
             key={item.uid}
-            href={`detail/${item.uid}`}
+            href={`${page}/detail/${item.uid}`}
           >
             <div className="card-name">Name: {JSON.stringify(item.name)}</div>
             <div className="card-description">

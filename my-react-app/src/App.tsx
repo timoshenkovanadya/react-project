@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { MouseEventHandler, useState } from "react";
 import { Provider } from "react-redux";
@@ -18,7 +18,8 @@ export const App = () => {
   const router = useRouter();
 
   const [theme, setTheme] = useState<ThemeType>("dark");
-  const [page, detailId] = (router.query.slug as string[] | undefined) || [];
+  const page = router.query.page;
+  const detailId = router.query.detailedId;
 
   const backdropClickHandler: MouseEventHandler<HTMLDivElement> = (e) => {
     const isClickInsideDetailed = (e.target as HTMLElement).closest(

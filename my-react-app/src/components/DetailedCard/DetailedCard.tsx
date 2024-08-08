@@ -1,14 +1,14 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { cardsService } from "../../api/cardsService";
 import { RootState } from "../../store/store";
 import { Loader } from "../Loader/Loader";
 import s from "./detailedCards.module.css";
 
 const DetailedCard = () => {
-  const { detailId, page } = useParams();
   const router = useRouter();
+  const page = router.query.page as string | undefined;
+  const detailId = router.query.detailedId as string | undefined;
   const detailedData = useSelector((state: RootState) => state.detailed.card);
   const { isFetching } = cardsService.useGetDetailedQuery(detailId!, {
     skip: !detailId,

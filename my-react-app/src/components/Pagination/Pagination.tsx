@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 export const Pagination = () => {
   const router = useRouter();
-  const [page] = (router.query.slug as string[] | undefined) || [];
+  const page = router.query.page;
   const maxPage = useSelector((store: RootState) => store.page.maxPage);
   const isPrevDisabled = useMemo(() => page === "1", [page]);
   const isNextDisabled = useMemo(() => page === maxPage, [page, maxPage]);

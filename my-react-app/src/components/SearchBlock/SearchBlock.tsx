@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 export const SearchBlock = () => {
   const ref = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
-  const [page] = (router.query.slug as string[] | undefined) || [];
+  const page = router.query.page as string | undefined;
   const [searchValue, setSearchValue] = useValueWithLocalStorage();
   const [isError, setIsError] = useState<boolean>(false);
   const [getCardsTrigger, { isLoading }] = cardsService.useGetCardsMutation();
