@@ -1,0 +1,33 @@
+/* * {
+  padding: 0px;
+  margin: 0px;
+} */
+
+.loaderWrapper {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%); */
+  height: 70vh;
+  width: 100%;
+}
+
+.loader {
+  position: relative;
+  top: 20%;
+  left: calc(50% - 50px);
+  width: 100px;
+  height: 100px;
+  border-top: 3px solid #ffff;
+  border-radius: 100%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
